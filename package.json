@@ -1,0 +1,22 @@
+{
+  "name": "openpolygon",
+  "version": "1.0.0",
+  "description": "Open source modeling application.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "eslint ./src/**/*.js && babel src -d dist && electron dist/index.js",
+	"start": "eslint ./src/**/*.js && node dist/index.js"
+  },
+  "author": "Ramon Brand",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
+    "electron": "1.7.11",
+    "eslint": "^4.16.0",
+    "eslint-config-google": "^0.9.1",
+    "mocha": "^5.0.0"
+  }
+}
