@@ -7,10 +7,25 @@ let mainWindow
 electron.app.on("ready", () => {
 	console.log("[INFO] Electron starting")
 
+	// -- Create default window options
+	let windowOptions = {
+		width: 1200, height: 1000,
+	}
+
+	// -- Set development window options
+	if (process.argv.includes("debug")) {
+		windowOptions = {
+			width: 1800, height: 1000, titleBarStyle: "hidden",
+		}
+	}
+
 	// -- Create new main window
-	mainWindow = new electron.BrowserWindow({
-		width: 800, height: 600,
-	})
+	mainWindow = new electron.BrowserWindow(windowOptions)
+
+	// -- Set up shared object with renderer
+	mainWindow.sharedData = {
+		isDebug: process.argv.includes("debug") ? true : false,
+	}
 
 	// -- Load index.html
 	mainWindow.loadURL(url.format({
@@ -23,7 +38,9 @@ electron.app.on("ready", () => {
 	mainWindow.setMenu(null)
 
 	// -- Open developer tools
-	mainWindow.webContents.openDevTools()
+	if (process.argv.includes("debug")) {
+		mainWindow.webContents.openDevTools()
+	}
 
 	// -- On window closed
 	mainWindow.on("closed", () => {

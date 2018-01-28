@@ -19,13 +19,26 @@ let mainWindow;
 _electron2.default.app.on("ready", () => {
 	console.log("[INFO] Electron starting");
 
-	// -- Create new main window
-	mainWindow = new _electron2.default.BrowserWindow({
-		width: 800, height: 600
-	});
+	// -- Create default window options
+	let windowOptions = {
+		width: 1200, height: 1000
 
-	// -- Load index.html
-	mainWindow.loadURL(_url2.default.format({
+		// -- Set development window options
+	};if (process.argv.includes("debug")) {
+		windowOptions = {
+			width: 1800, height: 1000, titleBarStyle: "hidden"
+		};
+	}
+
+	// -- Create new main window
+	mainWindow = new _electron2.default.BrowserWindow(windowOptions);
+
+	// -- Set up shared object with renderer
+	mainWindow.sharedData = {
+		isDebug: process.argv.includes("debug") ? true : false
+
+		// -- Load index.html
+	};mainWindow.loadURL(_url2.default.format({
 		pathname: _path2.default.join(__dirname, "../static/index.html"),
 		protocol: "file:",
 		slashes: true
@@ -35,7 +48,9 @@ _electron2.default.app.on("ready", () => {
 	mainWindow.setMenu(null);
 
 	// -- Open developer tools
-	mainWindow.webContents.openDevTools();
+	if (process.argv.includes("debug")) {
+		mainWindow.webContents.openDevTools();
+	}
 
 	// -- On window closed
 	mainWindow.on("closed", () => {
