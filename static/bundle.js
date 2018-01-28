@@ -60,74 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _window = __webpack_require__(1);
-
-var window = _interopRequireWildcard(_window);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-window.setTitle("Espresso");
-
-// -- Get global handle to sharedData
-// let sharedData = remote.getCurrentWindow().sharedData
-// import {remote} from "electron"
-// import $ from "jquery"
-
-// -- Application Modules
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.setTitle = setTitle;
-
-var _electron = __webpack_require__(2);
-
-var _jquery = __webpack_require__(3);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// -- Get global handle to sharedData
-let sharedData = _electron.remote.getCurrentWindow().sharedData;
-
-/**
- * Sets the title of the application.
- * @param {string} title The title to be set to.
- */
-function setTitle(title) {
-	if (sharedData.isDebug) {
-		(0, _jquery2.default)("#title").text("Debug - " + title);
-	} else {
-		(0, _jquery2.default)("#title").text("Production - " + title);
-	}
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("electron");
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10496,6 +10433,87 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _window = __webpack_require__(2);
+
+var window = _interopRequireWildcard(_window);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import * as input from "./input"
+
+// -- External Modules
+window.setTitle("Open Polygon");
+
+// -- Application Modules
+
+
+(0, _jquery2.default)("#button_reload").click(window.reload);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.setTitle = setTitle;
+exports.reload = reload;
+
+var _electron = __webpack_require__(3);
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// -- Get global handle to window
+let currentWindow = _electron.remote.getCurrentWindow();
+
+// -- Get global handle to sharedData
+let sharedData = currentWindow.sharedData;
+
+/**
+ * Sets the title of the application.
+ * @param {string} title The title to be set to.
+ */
+function setTitle(title) {
+	if (sharedData.isDebug) {
+		(0, _jquery2.default)("#title").text("Debug - " + title);
+	} else {
+		(0, _jquery2.default)("#title").text("Production - " + title);
+	}
+}
+
+/**
+ * Reload the window.
+ */
+function reload() {
+	currentWindow.reload();
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("electron");
 
 /***/ })
 /******/ ]);

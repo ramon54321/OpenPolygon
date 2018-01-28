@@ -1,6 +1,11 @@
 import electron from "electron"
 import path from "path"
 import url from "url"
+import fs from "fs"
+import {exec} from "child_process"
+
+// -- Define project root directory
+let rootDir = __dirname + "/../"
 
 let mainWindow
 
@@ -34,8 +39,64 @@ electron.app.on("ready", () => {
 		slashes: true,
 	}))
 
+	// -- Set up file watcher
+	let allowWatch = true
+	if (process.argv.includes("debug")) {
+		let fileChanged = (eventType, filename) => {
+			if (!allowWatch) {
+				return
+			}
+			console.log("[DEBUG] Reloading window due to file change")
+			mainWindow.reload()
+		}
+		fs.watch(rootDir + "static/", (eventType, filename) => {
+			fileChanged(eventType, filename)
+		})
+		fs.watch(rootDir + "dist/", (eventType, filename) => {
+			fileChanged(eventType, filename)
+		})
+	}
+
 	// -- Remove the menu
 	mainWindow.setMenu(null)
+
+	// -- Set debug menu
+	if (process.argv.includes("debug")) {
+		const template = [{
+			label: "Debug",
+			submenu: [
+				{label: "Reload",
+				/**
+				 * Reload the main window.
+				 */
+				click() {
+					mainWindow.reload()
+				}},
+				{label: "Build Client",
+				/**
+				 * Build client.
+				 */
+				click() {
+					allowWatch = false
+					exec("npm run lint && " +
+					"npm run build-renderer-dev && npm run build-style", {
+						cwd: rootDir,
+					}, (error, stdout, stderr) => {
+						console.log("[DEBUG] Built renderer and style")
+						if (error) {
+							console.log("[DEBUG ERROR] " + error)
+						}
+						console.log("[DEBUG] Reloading window")
+						mainWindow.reload
+						allowWatch = true
+					})
+				}},
+			],
+		}]
+
+		const menu = electron.Menu.buildFromTemplate(template)
+		mainWindow.setMenu(menu)
+	}
 
 	// -- Open developer tools
 	if (process.argv.includes("debug")) {

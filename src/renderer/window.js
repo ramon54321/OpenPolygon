@@ -1,8 +1,11 @@
 import {remote} from "electron"
 import $ from "jquery"
 
+// -- Get global handle to window
+let currentWindow = remote.getCurrentWindow()
+
 // -- Get global handle to sharedData
-let sharedData = remote.getCurrentWindow().sharedData
+let sharedData = currentWindow.sharedData
 
 /**
  * Sets the title of the application.
@@ -14,4 +17,11 @@ export function setTitle(title) {
 	} else {
 		$("#title").text("Production - " + title)
 	}
+}
+
+/**
+ * Reload the window.
+ */
+export function reload() {
+	currentWindow.reload()
 }

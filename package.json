@@ -4,14 +4,15 @@
   "description": "Open source modeling application.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run lint && npm run build-main && npm run build-renderer-dev && npm run start-debug",
-	"qbr": "npm run build-renderer-dev && npm run start-debug",
-	"test": "mocha",
-	"lint": "eslint ./src/**/*.js",
-	"build-main": "babel src/main -d dist",
-	"build-renderer-dev": "webpack --color --config webpack.development.config.js",
+    "build": "npm run lint && npm run build-main && npm run build-renderer-dev && npm run build-style && npm run start-debug",
+    "qbr": "npm run build-renderer-dev && npm run build-style && npm run start-debug",
+    "test": "mocha",
+    "lint": "eslint ./src/**/*.js",
+    "build-style": "node-sass --output-style compressed ./src/style/index.sass > ./static/index.css",
+    "build-main": "babel src/main -d dist",
+    "build-renderer-dev": "npm run build-style && webpack --color --config webpack.development.config.js",
     "start": "electron dist/index.js",
-	"start-debug": "electron dist/index.js debug"
+    "start-debug": "electron dist/index.js debug"
   },
   "author": "Ramon Brand",
   "license": "MIT",
@@ -21,10 +22,13 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "electron": "1.7.11",
+    "electron-reload": "^1.2.2",
     "eslint": "^4.16.0",
     "eslint-config-google": "^0.9.1",
     "jquery": "^3.3.1",
     "mocha": "^5.0.0",
+    "mousetrap": "^1.6.1",
+    "node-sass": "^4.7.2",
     "webpack": "^3.10.0"
   }
 }

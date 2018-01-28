@@ -1,10 +1,10 @@
-// import {remote} from "electron"
-// import $ from "jquery"
+// -- External Modules
+import $ from "jquery"
 
 // -- Application Modules
 import * as window from "./window"
+// import * as input from "./input"
 
-window.setTitle("Espresso")
+window.setTitle("Open Polygon")
 
-// -- Get global handle to sharedData
-// let sharedData = remote.getCurrentWindow().sharedData
+$("#button_reload").click(window.reload)

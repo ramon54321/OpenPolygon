@@ -2,13 +2,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title id=title>OpenPolygon</title>
+		<title id=title></title>
+
+		<!-- Font -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Roboto:300,400,400i,700" rel="stylesheet">
+
+		<!-- Style -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+		<link rel="stylesheet" type="text/css" href="./index.css">
 	</head>
 	<body>
 		<h1>Hello World!</h1>
 		We are using node <script>document.write(process.versions.node)</script>,
 		Chrome <script>document.write(process.versions.chrome)</script>,
 		and Electron <script>document.write(process.versions.electron)</script>.
+		<button id="button_reload">Reload</button>
 		<script src="./bundle.js"></script>
 	</body>
 </html>
