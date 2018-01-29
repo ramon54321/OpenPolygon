@@ -1,8 +1,11 @@
 {
-    "extends": "google",
+    "extends": ["react", "google"],
 	"parser": "babel-eslint",
 	"rules": {
 		"no-tabs": ["off"],
+		"no-undef": ["off"],
+		"indent": ["off"],
+		"object-curly-spacing": ["off"],
 		"linebreak-style": ["off"],
 		"quotes": ["warn", "double"],
 		"semi": ["warn", "never"],

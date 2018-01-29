@@ -1,4 +1,4 @@
-import {remote} from "electron"
+import { remote } from "electron"
 import $ from "jquery"
 
 // -- Get global handle to window

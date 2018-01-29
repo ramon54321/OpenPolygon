@@ -21,7 +21,7 @@ var _child_process = require("child_process");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // -- Define project root directory
-let rootDir = __dirname + "/../";
+let rootDir = _path2.default.join(__dirname, "/../");
 
 let mainWindow;
 
@@ -44,7 +44,7 @@ _electron2.default.app.on("ready", () => {
 
 	// -- Set up shared object with renderer
 	mainWindow.sharedData = {
-		isDebug: process.argv.includes("debug") ? true : false
+		isDebug: process.argv.includes("debug")
 
 		// -- Load index.html
 	};mainWindow.loadURL(_url2.default.format({
@@ -90,7 +90,7 @@ _electron2.default.app.on("ready", () => {
      */
 				click() {
 					allowWatch = false;
-					(0, _child_process.exec)("npm run lint && " + "npm run build-renderer-dev && npm run build-style", {
+					(0, _child_process.exec)("npm run build-renderer-dev", {
 						cwd: rootDir
 					}, (error, stdout, stderr) => {
 						console.log("[DEBUG] Built renderer and style");
@@ -98,7 +98,24 @@ _electron2.default.app.on("ready", () => {
 							console.log("[DEBUG ERROR] " + error);
 						}
 						console.log("[DEBUG] Reloading window");
-						mainWindow.reload;
+						mainWindow.reload();
+						allowWatch = true;
+					});
+				} }, { label: "Build Style",
+				/**
+     * Build style.
+     */
+				click() {
+					allowWatch = false;
+					(0, _child_process.exec)("npm run build-style", {
+						cwd: rootDir
+					}, (error, stdout, stderr) => {
+						console.log("[DEBUG] Built style");
+						if (error) {
+							console.log("[DEBUG ERROR] " + error);
+						}
+						console.log("[DEBUG] Reloading window");
+						mainWindow.reload();
 						allowWatch = true;
 					});
 				} }]

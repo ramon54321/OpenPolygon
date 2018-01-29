@@ -2,10 +2,10 @@ import electron from "electron"
 import path from "path"
 import url from "url"
 import fs from "fs"
-import {exec} from "child_process"
+import { exec } from "child_process"
 
 // -- Define project root directory
-let rootDir = __dirname + "/../"
+let rootDir = path.join(__dirname, "/../")
 
 let mainWindow
 
@@ -29,7 +29,7 @@ electron.app.on("ready", () => {
 
 	// -- Set up shared object with renderer
 	mainWindow.sharedData = {
-		isDebug: process.argv.includes("debug") ? true : false,
+		isDebug: process.argv.includes("debug"),
 	}
 
 	// -- Load index.html
@@ -78,8 +78,7 @@ electron.app.on("ready", () => {
 				 */
 				click() {
 					allowWatch = false
-					exec("npm run lint && " +
-					"npm run build-renderer-dev && npm run build-style", {
+					exec("npm run build-renderer-dev", {
 						cwd: rootDir,
 					}, (error, stdout, stderr) => {
 						console.log("[DEBUG] Built renderer and style")
@@ -87,7 +86,25 @@ electron.app.on("ready", () => {
 							console.log("[DEBUG ERROR] " + error)
 						}
 						console.log("[DEBUG] Reloading window")
-						mainWindow.reload
+						mainWindow.reload()
+						allowWatch = true
+					})
+				}},
+				{label: "Build Style",
+				/**
+				 * Build style.
+				 */
+				click() {
+					allowWatch = false
+					exec("npm run build-style", {
+						cwd: rootDir,
+					}, (error, stdout, stderr) => {
+						console.log("[DEBUG] Built style")
+						if (error) {
+							console.log("[DEBUG ERROR] " + error)
+						}
+						console.log("[DEBUG] Reloading window")
+						mainWindow.reload()
 						allowWatch = true
 					})
 				}},
