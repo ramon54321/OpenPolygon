@@ -4,7 +4,7 @@
   "description": "Open source modeling application.",
   "main": "dist/index.js",
   "scripts": {
-	"build-production": "npm run build-renderer-dev && npm run build-main && npm run build-style && npm run start",
+    "build-production": "npm run build-renderer-dev && npm run build-main && npm run build-style && npm run start",
     "build": "npm run build-renderer-dev && npm run build-main && npm run build-style && npm run start-debug",
     "test": "mocha",
     "lint": "eslint ./src/**/*.js",
@@ -12,7 +12,8 @@
     "build-main": "babel src/main -d dist",
     "build-renderer-dev": "npm run lint && npm run build-style && webpack --color --config webpack.development.config.js",
     "start": "electron dist/index.js",
-    "start-debug": "electron dist/index.js debug"
+    "start-debug": "electron dist/index.js debug",
+	"package": "electron-packager . OpenPolygon --arch=x64 --asar"
   },
   "author": "Ramon Brand",
   "license": "MIT",
@@ -25,6 +26,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "electron": "1.7.11",
+    "electron-packager": "^10.1.2",
     "electron-reload": "^1.2.2",
     "eslint": "^4.16.0",
     "eslint-config-google": "^0.9.1",
