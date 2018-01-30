@@ -2,6 +2,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {observer} from "mobx-react"
+import split from "split.js"
 
 // -- Application Modules
 import store from "../store"
@@ -13,11 +14,11 @@ class App extends React.Component {
 		return (
 			<div id="app">
 				<div id="panelLeft" className="panel">
-					h
+					Tools
 				</div>
 				<div id="panelRight" className="panel">
 					<div id="panelRightTop" className="panel">
-						t
+						Viewport
 					</div>
 					<div id="panelRightBottom" className="panel">
 						<Console />
@@ -43,4 +44,23 @@ export function render(elementId) {
 	initString += "Chrome " + process.versions.chrome + " and Electron "
 	initString += process.versions.electron + ". "
 	store.addLog(initString)
+
+	// -- Configure split
+	split(["#panelLeft", "#panelRight"], {
+	    sizes: [25, 75],
+		gutterSize: 10,
+		direction: "horizontal",
+		elementStyle: (dimension, elementSize, gutterSize) => {
+			return {"width": "calc(" + elementSize + "%)"}
+		},
+	})
+	split(["#panelRightTop", "#panelRightBottom"], {
+	    sizes: [75, 25],
+		gutterSize: 10,
+		direction: "vertical",
+		elementStyle: (dimension, elementSize, gutterSize) => {
+			// -- -1px is needed to prevent overflow
+			return {"height": "calc(" + elementSize + "% - 1px)"}
+		},
+	})
 }

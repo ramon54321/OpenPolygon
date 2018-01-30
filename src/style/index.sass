@@ -50,19 +50,20 @@ h6
 #app
 	display: flex
 	color: $color_font_light
+	background-color: $color_base_normal
 
 // -- Panel
 .panel
-	background-color: $color_base_normal
-
-.gutter
-	background-color: $color_base_dark
 
 .gutter-horizontal
 	cursor: col-resize
+	margin-left: -10px
+	border-right: 1px solid $color_base_dark
 
 .gutter-vertical
 	cursor: row-resize
+	margin-top: -10px
+	border-bottom: 1px solid $color_base_dark
 
 #panelLeft, #panelRight
 	height: 100vh
