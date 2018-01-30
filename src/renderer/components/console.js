@@ -3,15 +3,22 @@ import React from "react"
 import {PropTypes} from "prop-types"
 import {observer} from "mobx-react"
 
-import {store} from "./app"
+// -- Application Modules
+import store from "../store"
+import ConsoleLine from "./consoleLine"
+import {setConsoleScrollToLastLine} from "../interface"
 
 @observer
 export default class Console extends React.Component {
+	componentDidUpdate() {
+		setConsoleScrollToLastLine()
+	}
+
 	render() {
 		return (
 			<div id="console">
 				{store.logs.map((log, index) => {
-					return <li key={index}>{log}</li>
+					return <ConsoleLine key={index} line={log} />
 				})}
 			</div>
 		)

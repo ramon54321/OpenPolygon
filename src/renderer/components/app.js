@@ -1,37 +1,32 @@
 // -- External Modules
 import React from "react"
 import ReactDOM from "react-dom"
-import {observable} from "mobx"
 import {observer} from "mobx-react"
 
 // -- Application Modules
+import store from "../store"
 import Console from "./console"
-
-class Store {
-	@observable logs = ["the first lg"]
-}
-
-export let store = new Store()
 
 @observer
 class App extends React.Component {
-	addLog(log) {
-		store.logs.push(log)
-		console.log("Adding log")
-	}
-
 	render() {
-		console.log("rendering")
-		// console.log(store)
 		return (
 			<div id="app">
-				<button onClick={() => this.addLog("The new log.")}>Add Log</button>
-				<Console />
+				<div id="panelLeft" className="panel">
+					h
+				</div>
+				<div id="panelRight" className="panel">
+					<div id="panelRightTop" className="panel">
+						t
+					</div>
+					<div id="panelRightBottom" className="panel">
+						<Console />
+					</div>
+				</div>
 			</div>
 		)
 	}
 }
-
 
 /**
  * Render the main App component into the given element.
@@ -42,6 +37,10 @@ export function render(elementId) {
 		<App />,
 		document.getElementById(elementId)
 	)
-}
 
-// <Console logs={this.props.store.logs} />
+	// -- Initial interface setup
+	let initString = "[INFO] Running on Node " + process.versions.node + ", "
+	initString += "Chrome " + process.versions.chrome + " and Electron "
+	initString += process.versions.electron + ". "
+	store.addLog(initString)
+}
