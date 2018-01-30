@@ -7,6 +7,8 @@ $color_base_light: rgb(52, 56, 65)
 $color_base_normal: rgb(40, 44, 52)
 $color_base_dark: rgb(33, 36, 42)
 
+$speed_transition_quick: 0.2s
+
 html
 	font-family: "Open Sans", sans-serif
 	font-size: 14px
@@ -55,6 +57,9 @@ h6
 // -- Panel
 .panel
 
+.gutter
+	z-index: 100
+
 .gutter-horizontal
 	cursor: col-resize
 	margin-left: -10px
@@ -82,3 +87,38 @@ h6
 	padding: 0.5rem
 	padding-top: 0.25rem
 	padding-bottom: 0.25rem
+
+// -- Toolboxes
+.toolbox
+	padding: 0.6rem
+	margin: 0.4rem
+	border: 1px solid $color_base_dark
+	user-select: none
+
+.toolboxTitle
+	width: 100%
+	height: 20px
+	line-height: 20px
+	text-align: center
+	cursor: pointer
+
+.toolboxBlock
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
+	margin-top: 4px
+
+.toolboxButton
+	width: calc(100% - (0.4rem * 2))
+	height: 20px
+	line-height: 20px
+	margin-top: 4px
+	margin-bottom: 4px
+	margin-left: 0.4rem
+	margin-right: 0.4rem
+	text-align: center
+	background-color: $color_base_light
+	cursor: pointer
+	transition-duration: $speed_transition_quick
+
+	&:hover
+		background-color: $color_base_dark

@@ -6,7 +6,12 @@ import split from "split.js"
 
 // -- Application Modules
 import store from "../store"
+import {setPanelSizeDefault} from "../interface"
 import Console from "./console"
+import Toolbox from "./toolbox"
+
+import fileToolbox from "../toolboxes/file"
+import meshToolbox from "../toolboxes/mesh"
 
 @observer
 class App extends React.Component {
@@ -14,7 +19,8 @@ class App extends React.Component {
 		return (
 			<div id="app">
 				<div id="panelLeft" className="panel">
-					Tools
+					<Toolbox toolbox={fileToolbox}/>
+					<Toolbox toolbox={meshToolbox}/>
 				</div>
 				<div id="panelRight" className="panel">
 					<div id="panelRightTop" className="panel">
@@ -48,6 +54,7 @@ export function render(elementId) {
 	// -- Configure split
 	split(["#panelLeft", "#panelRight"], {
 	    sizes: [25, 75],
+		minSize: [240, 500],
 		gutterSize: 10,
 		direction: "horizontal",
 		elementStyle: (dimension, elementSize, gutterSize) => {
@@ -63,4 +70,6 @@ export function render(elementId) {
 			return {"height": "calc(" + elementSize + "% - 1px)"}
 		},
 	})
+
+	setPanelSizeDefault()
 }
