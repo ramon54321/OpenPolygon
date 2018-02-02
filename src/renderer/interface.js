@@ -2,7 +2,13 @@
 
 
 // -- Application Modules
+import * as viewport from "./viewport/viewport"
 
+// -- Add screen resize listener
+window.addEventListener("resize", function(e) {
+	e.preventDefault()
+	screenDidResize()
+})
 
 /**
  * Set console scroll to last line.
@@ -24,6 +30,15 @@ export function setPanelSizeDefault() {
 	let panelRightBottom = document.getElementById("panelRightBottom")
 	panelLeft.style.width = "300px"
 	panelRight.style.width = "calc(100% - 300px)"
-	panelRightTop.style.height = "calc(100% - 200px)"
-	panelRightBottom.style.height = "199px"
+	panelRightTop.style.height = "calc(100% - 201px)"
+	panelRightBottom.style.height = "190px"
+	screenDidResize()
+}
+
+/**
+ * Resize callback for screen.
+ */
+export function screenDidResize() {
+	console.log("[DEBUG] Screen size callback")
+	viewport.updateRendererSize()
 }

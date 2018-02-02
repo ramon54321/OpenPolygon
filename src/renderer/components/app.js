@@ -6,7 +6,7 @@ import split from "split.js"
 
 // -- Application Modules
 import store from "../store"
-import {setPanelSizeDefault} from "../interface"
+import * as interfaceLib from "../interface"
 import Console from "./console"
 import Toolbox from "./toolbox"
 
@@ -24,7 +24,8 @@ class App extends React.Component {
 				</div>
 				<div id="panelRight" className="panel">
 					<div id="panelRightTop" className="panel">
-						Viewport
+						<div id="canvas" />
+						<div id="hoverbutton">Bt</div>
 					</div>
 					<div id="panelRightBottom" className="panel">
 						<Console />
@@ -60,6 +61,7 @@ export function render(elementId) {
 		elementStyle: (dimension, elementSize, gutterSize) => {
 			return {"width": "calc(" + elementSize + "%)"}
 		},
+		onDrag: interfaceLib.screenDidResize,
 	})
 	split(["#panelRightTop", "#panelRightBottom"], {
 	    sizes: [75, 25],
@@ -67,9 +69,10 @@ export function render(elementId) {
 		direction: "vertical",
 		elementStyle: (dimension, elementSize, gutterSize) => {
 			// -- -1px is needed to prevent overflow
-			return {"height": "calc(" + elementSize + "% - 1px)"}
+			return {"height": "calc(" + elementSize + "% - 5.5px)"}
 		},
+		onDrag: interfaceLib.screenDidResize,
 	})
 
-	setPanelSizeDefault()
+	interfaceLib.setPanelSizeDefault()
 }

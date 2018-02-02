@@ -13,7 +13,7 @@
     "build-renderer-dev": "npm run lint && npm run build-style && webpack --color --config webpack.development.config.js",
     "start": "electron dist/index.js",
     "start-debug": "electron dist/index.js debug",
-	"package": "electron-packager . OpenPolygon --arch=x64 --asar"
+    "package": "electron-packager . OpenPolygon --arch=x64 --asar"
   },
   "author": "Ramon Brand",
   "license": "MIT",
@@ -41,6 +41,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "split.js": "^1.3.5",
+    "three": "^0.89.0",
     "webpack": "^3.10.0"
   }
 }
